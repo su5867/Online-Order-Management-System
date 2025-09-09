@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Join OOMS - Create Your Account</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">OOMS</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html" class="active">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="auth-hero">
+            <div class="container">
+                <div class="auth-content">
+                    <div class="auth-form-container">
+                        <div class="auth-header">
+                            <h1>Join OOMS Today</h1>
+                            <p>Create your account and start your seamless ordering journey</p>
+                        </div>
+
+                        <!-- Social Login Options -->
+                        <div class="social-login">
+                            <button class="social-btn google-btn">
+                                <span class="social-icon">🌐</span>
+                                Continue with Google
+                            </button>
+                            <button class="social-btn facebook-btn">
+                                <span class="social-icon">📘</span>
+                                Continue with Facebook
+                            </button>
+                        </div>
+
+                        <div class="divider">
+                            <span>or</span>
+                        </div>
+
+                        <!-- Registration Form -->
+                        <form id="signupForm" class="auth-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter your last name" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required />
+                                <div class="form-hint">We'll never share your email with anyone else.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="password" name="password" class="form-input" placeholder="Create a strong password" required />
+                                    <button type="button" class="password-toggle" id="passwordToggle">
+                                        <span class="eye-icon">👁️</span>
+                                    </button>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <div class="strength-fill" id="strengthFill"></div>
+                                    </div>
+                                    <span class="strength-text" id="strengthText">Password strength</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" required />
+                                <div class="form-error" id="passwordMatchError"></div>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms" name="terms" required />
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newsletter" name="newsletter" />
+                                    <span class="checkmark"></span>
+                                    Subscribe to our newsletter for updates and offers
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-full">Create Account</button>
+                        </form>
+
+                        <div class="auth-footer">
+                            <p>Already have an account? <a href="login.html" class="link">Sign in here</a></p>
+                        </div>
+                    </div>
+
+                    <div class="auth-visual">
+                        <div class="welcome-card">
+                            <div class="welcome-icon">🎉</div>
+                            <h3>Welcome to OOMS!</h3>
+                            <p>Join thousands of satisfied customers who trust us for their ordering needs.</p>
+                            <div class="benefits-list">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">⚡</span>
+                                    <span>Fast & Secure</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">💳</span>
+                                    <span>Multiple Payments</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🚚</span>
+                                    <span>Quick Delivery</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">📞</span>
+                                    <span>24/7 Support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>OOMS Nepal</h3>
+                    <p>Revolutionizing online order management in Nepal with cutting-edge technology and exceptional user experience.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">💼</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📧 support@oomsnepal.com.np</li>
+                        <li>📞 +977-1-1234567</li>
+                        <li>📍 Kathmandu, Nepal</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OOMS Nepal. All rights reserved. | Made with ❤️ in Nepal for better ordering</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Password toggle functionality
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = this.querySelector('.eye-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.textContent = '👁️';
+            }
+        });
+
+        // Password strength checker
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+
+            let strength = 0;
+            let feedback = [];
+
+            if (password.length >= 8) strength++;
+            else feedback.push('At least 8 characters');
+
+            if (/[a-z]/.test(password)) strength++;
+            else feedback.push('Lowercase letter');
+
+            if (/[A-Z]/.test(password)) strength++;
+            else feedback.push('Uppercase letter');
+
+            if (/[0-9]/.test(password)) strength++;
+            else feedback.push('Number');
+
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            else feedback.push('Special character');
+
+            const percentage = (strength / 5) * 100;
+            strengthFill.style.width = percentage + '%';
+
+            if (strength < 2) {
+                strengthFill.style.background = '#ef4444';
+                strengthText.textContent = 'Weak password';
+            } else if (strength < 4) {
+                strengthFill.style.background = '#f59e0b';
+                strengthText.textContent = 'Medium password';
+            } else {
+                strengthFill.style.background = '#10b981';
+                strengthText.textContent = 'Strong password';
+            }
+        });
+
+        // Password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const errorDiv = document.getElementById('passwordMatchError');
+
+            if (confirmPassword && password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+                this.classList.add('error');
+            } else {
+                errorDiv.textContent = '';
+                this.classList.remove('error');
+            }
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Basic validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long!');
+                return;
+            }
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: firstName + ' ' + lastName,
+                        email: email,
+                        password: password,
+                        phone: phone
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('Account created successfully! Welcome to OOMS!');
+                    window.location.href = 'login.html';
+                } else {
+                    const error = await response.text();
+                    alert('Registration failed: ' + error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during registration. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,175 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - OOMS</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/admin.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OOMS Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/admin.css" />
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1>OOMS Admin</h1>
-            <nav>
-                <ul>
-                    <li><a href="admin.html">Dashboard</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#orders">Orders</a></li>
-                    <li><a href="#users">Users</a></li>
-                    <li><a href="#reports">Reports</a></li>
-                    <li><a href="index.html">Back to Store</a></li>
-                    <li><a href="#" id="logoutBtn">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <!-- Dashboard Overview -->
-            <section id="dashboard" class="dashboard-section">
-                <h2>Dashboard Overview</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Total Products</h3>
-                        <p id="totalProducts">-</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Total Orders</h3>
-                        <p id="totalOrders">-</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Total Users</h3>
-                        <p id="totalUsers">-</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Revenue</h3>
-                        <p id="totalRevenue">$-</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Product Management -->
-            <section id="products" class="admin-section">
-                <h2>Product Management</h2>
-                <button id="addProductBtn" class="btn">Add New Product</button>
-                <div id="productsTable">
-                    <!-- Products table will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Order Management -->
-            <section id="orders" class="admin-section">
-                <h2>Order Management</h2>
-                <div id="ordersTable">
-                    <!-- Orders table will be loaded here -->
-                </div>
-            </section>
-
-            <!-- User Management -->
-            <section id="users" class="admin-section">
-                <h2>User Management</h2>
-                <div id="usersTable">
-                    <!-- Users table will be loaded here -->
-                </div>
-            </section>
-
-            <!-- Reports -->
-            <section id="reports" class="admin-section">
-                <h2>Reports</h2>
-                <div class="report-filters">
-                    <select id="reportType">
-                        <option value="sales">Sales Report</option>
-                        <option value="products">Best Selling Products</option>
-                        <option value="users">User Activity</option>
-                    </select>
-                    <button id="generateReportBtn" class="btn">Generate Report</button>
-                </div>
-                <div id="reportResults">
-                    <!-- Report results will be displayed here -->
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Add/Edit Product Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalTitle">Add Product</h2>
-            <form id="productForm">
-                <input type="hidden" id="productId">
-                <label for="productName">Name:</label>
-                <input type="text" id="productName" required>
-
-                <label for="productDescription">Description:</label>
-                <textarea id="productDescription" required></textarea>
-
-                <label for="productPrice">Price:</label>
-                <input type="number" id="productPrice" step="0.01" required>
-
-                <label for="productCategory">Category:</label>
-                <select id="productCategory" required>
-                    <!-- Categories will be loaded here -->
-                </select>
-
-                <label for="productImageUrl">Image URL:</label>
-                <input type="url" id="productImageUrl">
-
-                <button type="submit" class="btn">Save Product</button>
-            </form>
-        </div>
+<body class="admin">
+  <header>
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-utensils"></i> OOMS Admin</h1>
+      <nav>
+        <ul>
+          <li><a href="admin.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="products.html" id="manageProductsBtn"><i class="fas fa-pizza-slice"></i> Products</a></li>
+          <li><a href="#" id="manageUsersBtn"><i class="fas fa-users"></i> Users</a></li>
+          <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>OOMS Nepal</h3>
-                    <p>Revolutionizing online order management in Nepal with cutting-edge technology and exceptional user experience.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">📘</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">📷</a>
-                        <a href="#" class="social-link">💼</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">API Documentation</a></li>
-                        <li><a href="#">Status Page</a></li>
-                        <li><a href="#">Community</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <ul>
-                        <li>📧 support@oomsnepal.com.np</li>
-                        <li>📞 +977-1-1234567</li>
-                        <li>📍 Kathmandu, Nepal</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 OOMS Nepal. All rights reserved. | Made with ❤️ in Nepal for better ordering</p>
-            </div>
+  </header>
+  <main class="container mt-4">
+    <!-- Dashboard Stats Section -->
+    <section class="dashboard-section" id="dashboardSection">
+      <div class="grid grid-4 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalProducts">7</h2>
+            <p class="stat-label">Products</p>
+          </div>
         </div>
-    </footer>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalOrders">7</h2>
+            <p class="stat-label">Orders</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalUsers">7</h2>
+            <p class="stat-label">Users</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalRevenue">$12500</h2>
+            <p class="stat-label">Revenue</p>
+          </div>
+        </div>
+      </div>
 
-    <script src="/js/app.js"></script>
-    <script src="/js/admin.js"></script>
+      <div class="grid grid-3 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-chart-line"></i> Sales Trend</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-user-check"></i> User Status</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="usersChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-star"></i> Popular Items</h2>
+          </div>
+          <div class="card-body">
+            <ul class="popular-items-list">
+              <li>Nepali Mo:Mo <span class="order-count">(42 orders)</span></li>
+              <li>Chicken Chowmein <span class="order-count">(38 orders)</span></li>
+              <li>Buff Thukpa <span class="order-count">(35 orders)</span></li>
+              <li>Veg Pizza <span class="order-count">(28 orders)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header flex justify-between items-center">
+            <h2><i class="fas fa-pizza-slice"></i> Manage Products</h2>
+            <button id="addProductBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Product</button>
+          </div>
+          <div class="card-body" id="productsTable"></div>
+        </div>
+        <div class="card">
+          <div class="card-header flex justify-between items-center">
+            <h2><i class="fas fa-users"></i> Manage Users</h2>
+            <button id="addUserBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New User</button>
+          </div>
+          <div class="card-body" id="clientsTable"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-store"></i> Manage Restaurants</h2>
+          </div>
+          <div class="card-body" id="restaurantsTable"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Management Section (Hidden by default) -->
+    <section class="user-management-section" id="userManagementSection" style="display: none;">
+      <div class="section-header">
+        <h2><i class="fas fa-users"></i> User Management</h2>
+        <button id="backToDashboardBtn" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+      </div>
+      
+      <div class="user-filters mb-4">
+        <div class="filter-group">
+          <label for="userRoleFilter">Filter by Role:</label>
+          <select id="userRoleFilter" class="form-input">
+            <option value="all">All Roles</option>
+            <option value="CUSTOMER">Customer</option>
+            <option value="ADMIN">Admin</option>
+            <option value="RESTAURANT">Restaurant</option>
+            <option value="DELIVERY_STAFF">Delivery Staff</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="userStatusFilter">Filter by Status:</label>
+          <select id="userStatusFilter" class="form-input">
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="userSearch">Search:</label>
+          <input type="text" id="userSearch" class="form-input" placeholder="Search users..." />
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header flex justify-between items-center">
+          <h2>All Users</h2>
+          <span class="user-count" id="userCount">0 users found</span>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table id="usersTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <!-- Users will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for Add/Edit Product -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="productModalTitle"><i class="fas fa-pizza-slice"></i> Add Product</h3>
+        <button class="modal-close" id="closeProductModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm" class="form-container">
+          <input type="hidden" id="productId" />
+          <div class="form-group">
+            <label for="productName" class="form-label"><i class="fas fa-tag"></i> Name</label>
+            <input type="text" id="productName" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="productDescription" class="form-label"><i class="fas fa-align-left"></i> Description</label>
+            <textarea id="productDescription" class="form-input" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice" class="form-label"><i class="fas fa-dollar-sign"></i> Price</label>
+            <input type="number" id="productPrice" class="form-input" min="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="productCategory" class="form-label"><i class="fas fa-layer-group"></i> Category</label>
+            <select id="productCategory" class="form-input" required>
+              <option value="">Select Category</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productImageUrl" class="form-label"><i class="fas fa-image"></i> Image URL</label>
+            <input type="url" id="productImageUrl" class="form-input" onchange="updateImagePreview(this.value)" />
+            <div class="image-preview-container">
+              <img id="imagePreview" class="image-preview" src="" alt="Product image preview" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-save"></i> Save Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Edit User -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="userModalTitle"><i class="fas fa-user-plus"></i> Add User</h3>
+        <button class="modal-close" id="closeUserModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="userForm" class="form-container">
+          <input type="hidden" id="userId" />
+          <div class="form-group">
+            <label for="userName" class="form-label"><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="userName" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="userEmail" class="form-label"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="userEmail" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="userPassword" class="form-label"><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="userPassword" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="userPhone" class="form-label"><i class="fas fa-phone"></i> Phone (Optional)</label>
+            <input type="tel" id="userPhone" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="userRole" class="form-label"><i class="fas fa-user-tag"></i> Role</label>
+            <select id="userRole" class="form-input" required>
+              <option value="">Select Role</option>
+              <option value="CUSTOMER">Customer</option>
+              <option value="ADMIN">Admin</option>
+              <option value="RESTAURANT">Restaurant</option>
+              <option value="DELIVERY_STAFF">Delivery Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="userStatus" class="form-label"><i class="fas fa-toggle-on"></i> Status</label>
+            <select id="userStatus" class="form-input" required>
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-save"></i> Save User</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/admin.js"></script>
 </body>
 </html>

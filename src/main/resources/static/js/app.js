@@ -50,7 +50,6 @@ async function login(email, password) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Login response data:', data); // Debug log
             setToken(data.token);
             localStorage.setItem('userRole', data.role);
             localStorage.setItem('userName', data.name);
@@ -58,17 +57,13 @@ async function login(email, password) {
             showMessage('Login successful!', 'success');
 
             // Redirect based on role
-            console.log('User role:', data.role); // Debug log
             if (data.role === 'ADMIN') {
-                console.log('Redirecting to admin.html'); // Debug log
                 window.location.href = 'admin.html';
             } else {
-                console.log('Redirecting to index.html'); // Debug log
                 window.location.href = 'index.html';
             }
         } else {
             const error = await response.text();
-            console.log('Login error:', error); // Debug log
             showMessage(error || 'Login failed', 'error');
         }
     } catch (error) {

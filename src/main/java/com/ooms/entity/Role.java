@@ -1,7 +1,7 @@
 package com.ooms.entity;
 
 public enum Role {
-    CUSTOMER,
     ADMIN,
+    CUSTOMER,
     DELIVERY_STAFF
 }

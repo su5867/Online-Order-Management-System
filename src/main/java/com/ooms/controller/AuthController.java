@@ -45,13 +45,4 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getEmail());
         return ResponseEntity.ok(new AuthResponse(token, user.getRole().toString(), user.getName(), user.getEmail()));
     }
-
-    // Temporary endpoint for testing - remove in production
-    @PostMapping("/promote/{email}")
-    public ResponseEntity<String> promoteToAdmin(@PathVariable String email) {
-        User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setRole(com.ooms.entity.Role.ADMIN);
-        userService.save(user);
-        return ResponseEntity.ok("User promoted to admin");
-    }
 }

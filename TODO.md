@@ -1,68 +1,51 @@
-# Online Order Management System (OOMS) Development TODO
+# Admin Dashboard Issues - Progress Tracking
 
-## Phase 1: Project Setup
-- [x] Create Maven project structure with standard directories (src/main/java, src/main/resources, etc.)
-- [x] Configure pom.xml with Spring Boot 3.x, Java 17+, dependencies (Spring Security, JPA, MySQL, JWT, OAuth2, Mail, Validation, Swagger, Docker, Testing)
-- [x] Create application.properties template with placeholders for DB, JWT, payment keys, email
-- [x] Set up logging configuration (logback-spring.xml)
+## Issues Identified and Fixed
 
-## Phase 2: Database & Entities
-- [x] Design and create MySQL schema (users, addresses, products, categories, cart, wishlist, orders, order_items, payments, delivery_assignments)
-- [x] Create JPA entities with relationships and validations
-- [x] Create sample data SQL scripts
+### 1. Category Selection Issue in Add Product Form
+- **Problem**: Categories were not loading in the product form dropdown
+- **Root Cause**: Incorrect API URL in `loadCategories()` function (`/categories` instead of `/api/categories`) and missing authorization header
+- **Fix Applied**: Updated `loadCategories()` function in `admin.js` to use correct API path and include authorization header
+- **Status**: ✅ FIXED
 
-## Phase 3: Core Services
-- [x] Implement repositories (UserRepository, ProductRepository, etc.)
-- [x] Create service layer (UserService, ProductService, OrderService, etc.)
-- [x] Implement business logic for cart, wishlist, order status flow
+### 2. Missing Users Management Page
+- **Problem**: "Users" link in admin dashboard led to non-existent `users.html` page
+- **Root Cause**: `users.html` file was missing from static resources
+- **Fix Applied**: Created `users.html` page with user management functionality (add, edit, delete users)
+- **Status**: ✅ FIXED
 
-## Phase 4: Security & Authentication
-- [x] Configure Spring Security with JWT authentication
-- [x] Implement login/logout endpoints
-- [x] Add OAuth2 integration (Google)
-- [x] Implement role-based access (Admin, Customer, Delivery Staff)
-- [x] Password hashing with BCrypt
+### 3. Missing Backend Endpoints for User Management
+- **Problem**: AdminController was missing individual user CRUD endpoints
+- **Root Cause**: Only `getAllUsers()` was available, missing `getUserById`, `updateUser`, `deleteUser`
+- **Fix Applied**: Added missing endpoints to AdminController and corresponding methods to UserService
+- **Status**: ✅ FIXED
 
-## Phase 5: Controllers & APIs
-- [x] Create REST controllers for user management, product CRUD, order management
-- [x] Implement cart and wishlist endpoints
-- [x] Add input validation and global exception handling
-- [x] Configure Swagger/OpenAPI documentation
+## Testing Required
 
-## Phase 6: Payment Integration
-- [x] Integrate Stripe payment gateway
-- [x] Handle COD and refunds
-- [x] Store payment transactions in DB
+### Critical Path Testing
+- [ ] Verify categories load correctly in product form dropdown
+- [ ] Test adding new products with category selection
+- [ ] Verify user management page loads and displays users
+- [ ] Test adding new users through admin interface
+- [ ] Test editing existing users
+- [ ] Test deleting users
+- [ ] Verify proper authorization (admin-only access)
 
-## Phase 7: Notifications & Reports
-- [x] Set up Spring Mail for email notifications
-- [x] Implement order update and payment notifications
-- [x] Create admin dashboard with reports (sales, revenue, best-sellers)
-- [x] Add export functionality (Excel/PDF) - Basic CSV export available
+### Edge Cases to Test
+- [ ] Test with invalid category IDs
+- [ ] Test user creation with duplicate emails
+- [ ] Test user updates without password changes
+- [ ] Verify error handling for failed API calls
+- [ ] Test browser console for any JavaScript errors
 
-## Phase 8: Advanced Features
-- [x] Implement product search with filters, sorting, pagination
-- [ ] Add discount coupons/vouchers (optional - skipped)
-- [ ] Multi-language and multi-currency support (optional - skipped)
-- [ ] WebSocket for real-time notifications (optional - skipped)
+## Files Modified
+- `src/main/resources/static/js/admin.js` - Fixed category loading
+- `src/main/resources/static/users.html` - Created user management page
+- `src/main/java/com/ooms/controller/AdminController.java` - Added user CRUD endpoints
+- `src/main/java/com/ooms/service/UserService.java` - Added missing service methods
 
-## Phase 9: Testing & Deployment
-- [ ] Write unit tests with JUnit and Mockito (skipped as per user request)
-- [ ] Integration tests for APIs (skipped as per user request)
-- [x] Create Dockerfile for containerization
-- [x] Build pre-configured JAR with README instructions
-- [x] Successfully build and package the application
-
-## Phase 10: Final Touches
-- [x] Code review and refactoring for clean architecture
-- [x] Performance optimization
-- [x] Security audit
-- [x] Documentation updates
-- [x] Fix HTML pages to connect with backend APIs (login, signup, payment methods)
-- [x] Update payment methods to use only Stripe
-- [x] Create creative and Nepal-focused HTML pages (products, about, contact)
-- [x] Integrate Nepali Rupee currency display and local branding
-- [x] Update footers to match index.html design with social links
-- [x] Add comprehensive content to all pages (hero sections, categories, team info, testimonials, FAQ, contact info)
-- [x] Fix admin.html page loading issues (CSS/JS paths and role-based access)
-- [x] Fix admin.html page loading issues (CSS/JS paths, role-based access, and API endpoints)
+## Next Steps
+1. Test the fixes in browser
+2. Verify all functionality works as expected
+3. Check for any remaining issues or edge cases
+4. Update documentation if needed

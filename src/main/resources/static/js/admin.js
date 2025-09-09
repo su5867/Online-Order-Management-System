@@ -1,4 +1,5 @@
 // Admin Dashboard JavaScript
+console.log('Admin.js loaded'); // Debug log
 
 const adminApiBaseUrl = 'http://localhost:8080/api';
 
@@ -26,8 +27,10 @@ function getAdminToken() {
 }
 
 function isAdminLoggedIn() {
-    // For simplicity, check if token exists
-    return !!getAdminToken();
+    const token = getAdminToken();
+    const userRole = localStorage.getItem('userRole');
+    console.log('Admin check - Token:', !!token, 'Role:', userRole); // Debug log
+    return !!token && userRole === 'ADMIN';
 }
 
 function logoutAdmin() {
@@ -405,11 +408,14 @@ async function deleteRestaurant(restaurantId) {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded event fired in admin.js'); // Debug log
     if (!isAdminLoggedIn()) {
+        console.log('User is not admin logged in, redirecting to login.html'); // Debug log
         window.location.href = 'login.html';
         return;
     }
 
+    console.log('User is admin logged in, loading dashboard'); // Debug log
     loadDashboardStats();
     loadProductsTable();
     loadCategories();

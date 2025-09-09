@@ -250,17 +250,28 @@
                     })
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    // Store JWT token
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('email', email);
-                    alert('Login successful! Welcome back to OOMS!');
-                    window.location.href = 'index.html';
-                } else {
-                    const error = await response.text();
-                    alert('Login failed: ' + error);
-                }
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Login response data:', data);  // Debug log
+            // Store JWT token and user info
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('userRole', data.role);
+            localStorage.setItem('userName', data.name);
+            alert('Login successful! Welcome back to OOMS!');
+
+            // Redirect based on role
+            if (data.role === 'ADMIN') {
+                console.log('Redirecting to admin.html');  // Debug log
+                window.location.href = 'admin.html';
+            } else {
+                console.log('Redirecting to index.html');  // Debug log
+                window.location.href = 'index.html';
+            }
+        } else {
+            const error = await response.text();
+            alert('Login failed: ' + error);
+        }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred during login. Please try again.');

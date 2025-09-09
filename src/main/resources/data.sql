@@ -17,6 +17,7 @@ INSERT INTO products (name, description, price, stock, category_id, image_url) V
 -- Insert users (passwords are hashed, e.g., 'password' -> BCrypt hash)
 -- Note: In real app, use proper hashing
 INSERT INTO users (name, email, password, role, created_at) VALUES ('Admin User', 'admin@ooms.com', '$2a$10$examplehash', 'ADMIN', NOW());
+INSERT INTO users (name, email, password, role, created_at) VALUES ('Admin User', 'admin@gmail.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ADMIN', NOW());
 INSERT INTO users (name, email, password, role, created_at) VALUES ('John Customer', 'john@example.com', '$2a$10$examplehash', 'CUSTOMER', NOW());
 INSERT INTO users (name, email, password, role, created_at) VALUES ('Jane Staff', 'jane@ooms.com', '$2a$10$examplehash', 'DELIVERY_STAFF', NOW());
 

@@ -9,7 +9,7 @@ This project is a production-ready Online Order Management System built with Spr
 - Product CRUD with categories and stock management
 - Cart and wishlist functionality
 - Order placement, tracking, and status updates
-- Payment integration with eSewa, Khalti, Mobile Banking, and COD
+- Payment integration with Stripe and COD
 - Email notifications for orders and payments
 - Swagger API documentation
 - Docker containerization

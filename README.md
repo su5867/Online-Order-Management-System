@@ -1,7 +1,7 @@
 # Online Order Management System (OOMS)
 
 ## Overview
-This project is a production-ready Online Order Management System built with Spring Boot 3.x, Java 17+, and MySQL. It supports user authentication with JWT and OAuth2 (Google), role-based access control, product and order management, payment gateway integration (eSewa, Khalti, Mobile Banking), email notifications, and more.
+This project is a production-ready Online Order Management System built with Spring Boot 3.x, Java 17+, and MySQL. It supports user authentication with JWT and OAuth2 (Google), role-based access control, product and order management, payment gateway integration (Stripe), email notifications, and more.
 
 ## Features
 - User registration, login, profile management
@@ -31,7 +31,7 @@ This project is a production-ready Online Order Management System built with Spr
   - JWT secret (auto-generated or set your own)
   - Google OAuth2 client ID and secret (see below)
   - Email SMTP settings
-  - Payment gateway credentials (eSewa, Khalti, Mobile Banking)
+  - Payment gateway credentials (Stripe)
 
 ### Google OAuth2 Setup
 1. Go to [Google Cloud Console](https://console.cloud.google.com/).

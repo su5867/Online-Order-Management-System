@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Restaurant Dashboard - OOMS Nepal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/restaurant.css" />
+</head>
+<body class="restaurant">
+  <header>
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-utensils"></i> Restaurant Dashboard</h1>
+      <nav>
+        <ul>
+          <li><a href="#" class="active" id="dashboardBtn"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="#" id="ordersBtn"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+          <li><a href="#" id="menuBtn"><i class="fas fa-utensils"></i> Menu</a></li>
+          <li><a href="#" id="analyticsBtn"><i class="fas fa-chart-line"></i> Analytics</a></li>
+          <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mt-4">
+    <!-- Dashboard Section -->
+    <section class="dashboard-section" id="dashboardSection">
+      <div class="welcome-card">
+        <h2>Welcome to Your Restaurant Dashboard</h2>
+        <p>Manage your orders, menu items, and track your performance</p>
+      </div>
+
+      <div class="grid grid-4 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalOrders">0</h2>
+            <p class="stat-label">Today's Orders</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="pendingOrders">0</h2>
+            <p class="stat-label">Pending Orders</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="completedOrders">0</h2>
+            <p class="stat-label">Completed Today</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="todayRevenue">Rs. 0</h2>
+            <p class="stat-label">Today's Revenue</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-clock"></i> Recent Orders</h2>
+          </div>
+          <div class="card-body">
+            <div id="recentOrdersList" class="orders-list">
+              <!-- Recent orders will be populated here -->
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-utensils"></i> Popular Items</h2>
+          </div>
+          <div class="card-body">
+            <div id="popularItemsList" class="popular-items-list">
+              <!-- Popular items will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-1">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-chart-bar"></i> Today's Performance</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="performanceChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="orders-section" id="ordersSection" style="display: none;">
+      <div class="section-header">
+        <h2><i class="fas fa-clipboard-list"></i> Order Management</h2>
+      </div>
+
+      <div class="order-filters mb-4">
+        <div class="filter-group">
+          <label for="orderStatusFilter">Filter by Status:</label>
+          <select id="orderStatusFilter" class="form-input">
+            <option value="all">All Orders</option>
+            <option value="PENDING">Pending</option>
+            <option value="CONFIRMED">Confirmed</option>
+            <option value="PREPARING">Preparing</option>
+            <option value="READY">Ready for Pickup</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="orderDateFilter">Filter by Date:</label>
+          <input type="date" id="orderDateFilter" class="form-input" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>All Orders</h2>
+          <span class="order-count" id="orderCount">0 orders found</span>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table id="ordersTable">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Order Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Orders will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menuSection" style="display: none;">
+      <div class="section-header flex justify-between items-center">
+        <h2><i class="fas fa-utensils"></i> Menu Management</h2>
+        <button id="addMenuItemBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Menu Item</button>
+      </div>
+
+      <div class="menu-filters mb-4">
+        <div class="filter-group">
+          <label for="menuCategoryFilter">Filter by Category:</label>
+          <select id="menuCategoryFilter" class="form-input">
+            <option value="all">All Categories</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="menuSearch">Search:</label>
+          <input type="text" id="menuSearch" class="form-input" placeholder="Search menu items..." />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Menu Items</h2>
+          <span class="item-count" id="menuItemCount">0 items found</span>
+        </div>
+        <div class="card-body">
+          <div id="menuItemsGrid" class="menu-grid">
+            <!-- Menu items will be populated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="analytics-section" id="analyticsSection" style="display: none;">
+      <div class="section-header">
+        <h2><i class="fas fa-chart-line"></i> Analytics & Reports</h2>
+      </div>
+
+      <div class="grid grid-2 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2>Revenue Trend</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2>Order Status Distribution</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="orderStatusChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-1">
+        <div class="card">
+          <div class="card-header">
+            <h2>Top Selling Items</h2>
+          </div>
+          <div class="card-body">
+            <div id="topSellingItems" class="analytics-list">
+              <!-- Top selling items will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for Order Details -->
+  <div id="orderDetailsModal" class="modal">
+    <div class="modal-content large">
+      <div class="modal-header">
+        <h3 id="orderDetailsTitle"><i class="fas fa-receipt"></i> Order Details</h3>
+        <button class="modal-close" id="closeOrderDetailsModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="orderDetailsContent">
+          <!-- Order details will be populated here -->
+        </div>
+        <div class="modal-actions">
+          <button id="updateOrderStatusBtn" class="btn btn-primary">Update Status</button>
+          <button id="printOrderBtn" class="btn btn-secondary">Print Receipt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Edit Menu Item -->
+  <div id="menuItemModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="menuItemModalTitle"><i class="fas fa-utensils"></i> Add Menu Item</h3>
+        <button class="modal-close" id="closeMenuItemModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="menuItemForm" class="form-container">
+          <input type="hidden" id="menuItemId" />
+          <div class="form-group">
+            <label for="itemName" class="form-label"><i class="fas fa-tag"></i> Item Name</label>
+            <input type="text" id="itemName" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="itemDescription" class="form-label"><i class="fas fa-align-left"></i> Description</label>
+            <textarea id="itemDescription" class="form-input" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="itemPrice" class="form-label"><i class="fas fa-dollar-sign"></i> Price</label>
+            <input type="number" id="itemPrice" class="form-input" min="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="itemCategory" class="form-label"><i class="fas fa-layer-group"></i> Category</label>
+            <select id="itemCategory" class="form-input" required>
+              <option value="">Select Category</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="itemImageUrl" class="form-label"><i class="fas fa-image"></i> Image URL</label>
+            <input type="url" id="itemImageUrl" class="form-input" onchange="updateItemImagePreview(this.value)" />
+            <div class="image-preview-container">
+              <img id="itemImagePreview" class="image-preview" src="" alt="Item image preview" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="itemStock" class="form-label"><i class="fas fa-boxes"></i> Stock Quantity</label>
+            <input type="number" id="itemStock" class="form-input" min="0" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              <input type="checkbox" id="itemAvailable" checked /> Available for Order
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-save"></i> Save Menu Item</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/restaurant.js"></script>
+</body>
+</html>

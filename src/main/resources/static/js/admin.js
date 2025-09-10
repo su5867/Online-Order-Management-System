@@ -169,7 +169,7 @@ function displayProductsTable(products) {
 }
 
 // Open modal for adding or editing product
-function openEditProductModal(productId) {
+async function openEditProductModal(productId) {
     const modal = document.getElementById('productModal');
     const modalTitle = document.getElementById('productModalTitle');
 
@@ -177,20 +177,29 @@ function openEditProductModal(productId) {
 
     if (productId) {
         modalTitle.innerHTML = '<i class="fas fa-edit"></i> Edit Product';
-        // Load product data and fill form
-        const products = getSampleProducts();
-        const product = products.find(p => p.id === productId);
-        
-        if (product) {
-            document.getElementById('productId').value = product.id;
-            document.getElementById('productName').value = product.name;
-            document.getElementById('productDescription').value = product.description;
-            document.getElementById('productPrice').value = product.price;
-            document.getElementById('productCategory').value = product.category ? product.category.id : '';
-            document.getElementById('productImageUrl').value = product.imageUrl || '';
-            updateImagePreview(product.imageUrl);
-        } else {
-            showAdminMessage('Product not found', 'error');
+        // Load product data from API
+        try {
+            const response = await fetch(`${adminApiBaseUrl}/products/${productId}`, {
+                headers: {
+                    'Authorization': `Bearer ${getAdminToken()}`
+                }
+            });
+
+            if (response.ok) {
+                const product = await response.json();
+                document.getElementById('productId').value = product.id;
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productDescription').value = product.description;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productCategory').value = product.category ? product.category.id : '';
+                document.getElementById('productImageUrl').value = product.imageUrl || '';
+                updateImagePreview(product.imageUrl);
+            } else {
+                showAdminMessage('Failed to load product data', 'error');
+                return;
+            }
+        } catch (error) {
+            showAdminMessage('Network error loading product data', 'error');
             return;
         }
     } else {
@@ -522,7 +531,7 @@ function displayUsersTable(users) {
 }
 
 // Open modal for adding or editing user
-function openEditUserModal(userId) {
+async function openEditUserModal(userId) {
     const modal = document.getElementById('userModal');
     const modalTitle = document.getElementById('userModalTitle');
 
@@ -530,20 +539,29 @@ function openEditUserModal(userId) {
 
     if (userId) {
         modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Edit User';
-        // Load user data and fill form
-        const users = getAllSampleUsers();
-        const user = users.find(u => u.id === userId);
-        
-        if (user) {
-            document.getElementById('userId').value = user.id;
-            document.getElementById('userName').value = user.name;
-            document.getElementById('userEmail').value = user.email;
-            document.getElementById('userPassword').value = ''; // Don't fill password for security
-            document.getElementById('userPhone').value = user.phone || '';
-            document.getElementById('userRole').value = user.role;
-            document.getElementById('userStatus').value = user.enabled;
-        } else {
-            showAdminMessage('User not found', 'error');
+        // Load user data from API
+        try {
+            const response = await fetch(`${adminApiBaseUrl}/admin/users/${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${getAdminToken()}`
+                }
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                document.getElementById('userId').value = user.id;
+                document.getElementById('userName').value = user.name;
+                document.getElementById('userEmail').value = user.email;
+                document.getElementById('userPassword').value = ''; // Don't fill password for security
+                document.getElementById('userPhone').value = user.phone || '';
+                document.getElementById('userRole').value = user.role;
+                document.getElementById('userStatus').value = user.enabled;
+            } else {
+                showAdminMessage('Failed to load user data', 'error');
+                return;
+            }
+        } catch (error) {
+            showAdminMessage('Network error loading user data', 'error');
             return;
         }
     } else {
@@ -567,7 +585,7 @@ async function saveUser(event) {
     const role = document.getElementById('userRole').value;
     const enabled = document.getElementById('userStatus').value === 'true';
 
-    if (!name || !email || !role || (!userId && !password)) {
+    if (!name || !email || !role) {
         showAdminMessage('Please fill all required fields', 'error');
         return;
     }

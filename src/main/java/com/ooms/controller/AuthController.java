@@ -29,8 +29,14 @@ public class AuthController {
         if (userService.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
         }
-        // Default role to CUSTOMER on registration
-        user.setRole(com.ooms.entity.Role.CUSTOMER);
+        // Use the role from the request, default to CUSTOMER if not provided
+        if (user.getRole() == null) {
+            user.setRole(com.ooms.entity.Role.CUSTOMER);
+        }
+        // If no password provided (admin creating user), generate a default password
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            user.setPassword("defaultPassword123"); // Default password for admin-created users
+        }
         User savedUser = userService.register(user);
         return ResponseEntity.ok(savedUser);
     }

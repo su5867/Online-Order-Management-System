@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OOMS Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin">
+  <header>
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-utensils"></i> OOMS Admin</h1>
+      <nav>
+        <ul>
+          <li><a href="admin.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="#" id="manageProductsBtn"><i class="fas fa-pizza-slice"></i> Products</a></li>
+          <li><a href="#" id="manageUsersBtn"><i class="fas fa-users"></i> Users</a></li>
+          <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container mt-4">
+    <!-- Dashboard Stats Section -->
+    <section class="dashboard-section" id="dashboardSection">
+      <div class="grid grid-4 mb-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalProducts">7</h2>
+            <p class="stat-label">Products</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalOrders">7</h2>
+            <p class="stat-label">Orders</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalUsers">7</h2>
+            <p class="stat-label">Users</p>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h2 class="stat-number" id="totalRevenue">$12500</h2>
+            <p class="stat-label">Revenue</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-chart-line"></i> Sales Trend</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-user-check"></i> User Status</h2>
+          </div>
+          <div class="card-body">
+            <canvas id="usersChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-star"></i> Popular Items</h2>
+          </div>
+          <div class="card-body">
+            <ul class="popular-items-list">
+              <li>Nepali Mo:Mo <span class="order-count">(42 orders)</span></li>
+              <li>Chicken Chowmein <span class="order-count">(38 orders)</span></li>
+              <li>Buff Thukpa <span class="order-count">(35 orders)</span></li>
+              <li>Veg Pizza <span class="order-count">(28 orders)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header flex justify-between items-center">
+            <h2><i class="fas fa-pizza-slice"></i> Manage Products</h2>
+            <button id="addProductBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Product</button>
+          </div>
+          <div class="card-body" id="productsTable"></div>
+        </div>
+        <div class="card">
+          <div class="card-header flex justify-between items-center">
+            <h2><i class="fas fa-users"></i> Manage Users</h2>
+            <button id="addUserBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New User</button>
+          </div>
+          <div class="card-body" id="clientsTable"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-store"></i> Manage Restaurants</h2>
+          </div>
+          <div class="card-body" id="restaurantsTable"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Management Section (Hidden by default) -->
+    <section class="user-management-section" id="userManagementSection" style="display: none;">
+      <div class="section-header">
+        <h2><i class="fas fa-users"></i> User Management</h2>
+        <button id="backToDashboardBtn" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+      </div>
+      
+      <div class="user-filters mb-4">
+        <div class="filter-group">
+          <label for="userRoleFilter">Filter by Role:</label>
+          <select id="userRoleFilter" class="form-input">
+            <option value="all">All Roles</option>
+            <option value="CUSTOMER">Customer</option>
+            <option value="ADMIN">Admin</option>
+            <option value="RESTAURANT">Restaurant</option>
+            <option value="DELIVERY_STAFF">Delivery Staff</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="userStatusFilter">Filter by Status:</label>
+          <select id="userStatusFilter" class="form-input">
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="userSearch">Search:</label>
+          <input type="text" id="userSearch" class="form-input" placeholder="Search users..." />
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header flex justify-between items-center">
+          <h2>All Users</h2>
+          <span class="user-count" id="userCount">0 users found</span>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table id="usersTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <!-- Users will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for Add/Edit Product -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="productModalTitle"><i class="fas fa-pizza-slice"></i> Add Product</h3>
+        <button class="modal-close" id="closeProductModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm" class="form-container">
+          <input type="hidden" id="productId" />
+          <div class="form-group">
+            <label for="productName" class="form-label"><i class="fas fa-tag"></i> Name</label>
+            <input type="text" id="productName" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="productDescription" class="form-label"><i class="fas fa-align-left"></i> Description</label>
+            <textarea id="productDescription" class="form-input" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice" class="form-label"><i class="fas fa-dollar-sign"></i> Price</label>
+            <input type="number" id="productPrice" class="form-input" min="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="productCategory" class="form-label"><i class="fas fa-layer-group"></i> Category</label>
+            <select id="productCategory" class="form-input" required>
+              <option value="">Select Category</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productImageUrl" class="form-label"><i class="fas fa-image"></i> Image URL</label>
+            <input type="url" id="productImageUrl" class="form-input" onchange="updateImagePreview(this.value)" />
+            <div class="image-preview-container">
+              <img id="imagePreview" class="image-preview" src="" alt="Product image preview" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-save"></i> Save Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Edit User -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="userModalTitle"><i class="fas fa-user-plus"></i> Add User</h3>
+        <button class="modal-close" id="closeUserModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="userForm" class="form-container">
+          <input type="hidden" id="userId" />
+          <div class="form-group">
+            <label for="userName" class="form-label"><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="userName" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="userEmail" class="form-label"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="userEmail" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="userPhone" class="form-label"><i class="fas fa-phone"></i> Phone (Optional)</label>
+            <input type="tel" id="userPhone" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="userRole" class="form-label"><i class="fas fa-user-tag"></i> Role</label>
+            <select id="userRole" class="form-input" required>
+              <option value="">Select Role</option>
+              <option value="CUSTOMER">Customer</option>
+              <option value="ADMIN">Admin</option>
+              <option value="RESTAURANT">Restaurant</option>
+              <option value="DELIVERY_STAFF">Delivery Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="userStatus" class="form-label"><i class="fas fa-toggle-on"></i> Status</label>
+            <select id="userStatus" class="form-input" required>
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-save"></i> Save User</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

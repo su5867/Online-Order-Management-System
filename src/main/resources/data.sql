@@ -16,9 +16,9 @@ INSERT INTO products (name, description, price, stock, category_id, image_url) V
 
 -- Insert users (passwords are hashed, e.g., 'password' -> BCrypt hash)
 -- Note: In real app, use proper hashing
-INSERT INTO users (name, email, password, role, created_at) VALUES ('Admin User', 'admin@ooms.com', '$2a$10$examplehash', 'ADMIN', NOW());
-INSERT INTO users (name, email, password, role, created_at) VALUES ('John Customer', 'john@example.com', '$2a$10$examplehash', 'CUSTOMER', NOW());
-INSERT INTO users (name, email, password, role, created_at) VALUES ('Jane Staff', 'jane@ooms.com', '$2a$10$examplehash', 'DELIVERY_STAFF', NOW());
+INSERT INTO users (name, email, password, phone, role, created_at) VALUES ('Admin User', 'admin@ooms.com', '$2a$10$examplehash', NULL, 'ADMIN', NOW());
+INSERT INTO users (name, email, password, phone, role, created_at) VALUES ('John Customer', 'john@example.com', '$2a$10$examplehash', '+977-1234567890', 'CUSTOMER', NOW());
+INSERT INTO users (name, email, password, phone, role, created_at) VALUES ('Jane Staff', 'jane@ooms.com', '$2a$10$examplehash', '+977-9876543210', 'DELIVERY_STAFF', NOW());
 
 -- Insert addresses
 INSERT INTO addresses (user_id, address_line, city, state, zip, is_default) VALUES (2, '123 Main St', 'Kathmandu', 'Bagmati', '44600', true);

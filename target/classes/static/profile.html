@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - OOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">OOMS</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html" class="btn btn-outline">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Profile Hero Section -->
+        <section class="profile-hero">
+            <div class="container">
+                <div class="profile-hero-content">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <span id="userInitial">👤</span>
+                        </div>
+                    </div>
+                    <h1 class="profile-title">Welcome back, <span id="userName">User</span>!</h1>
+                    <p class="profile-subtitle">Manage your account settings and view your order history</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Content -->
+        <section class="profile-content">
+            <div class="container">
+                <div class="profile-layout">
+                    <!-- Profile Sidebar -->
+                    <div class="profile-sidebar">
+                        <div class="sidebar-menu">
+                            <button class="sidebar-item active" data-section="personal">
+                                <span class="sidebar-icon">👤</span>
+                                Personal Info
+                            </button>
+                            <button class="sidebar-item" data-section="security">
+                                <span class="sidebar-icon">🔒</span>
+                                Security
+                            </button>
+                            <button class="sidebar-item" data-section="orders">
+                                <span class="sidebar-icon">📦</span>
+                                My Orders
+                            </button>
+                            <button class="sidebar-item" data-section="addresses">
+                                <span class="sidebar-icon">📍</span>
+                                Addresses
+                            </button>
+                            <button class="sidebar-item" data-section="preferences">
+                                <span class="sidebar-icon">⚙️</span>
+                                Preferences
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile Main Content -->
+                    <div class="profile-main">
+                        <!-- Personal Information Section -->
+                        <div id="personal-section" class="profile-section active">
+                            <div class="section-header">
+                                <h2>👤 Personal Information</h2>
+                                <p>Update your personal details and contact information</p>
+                            </div>
+                            <div class="section-content">
+                                <form id="profileForm" class="profile-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Security Section -->
+                        <div id="security-section" class="profile-section">
+                            <div class="section-header">
+                                <h2>🔒 Security Settings</h2>
+                                <p>Manage your password and security preferences</p>
+                            </div>
+                            <div class="section-content">
+                                <form id="passwordForm" class="profile-form">
+                                    <div class="form-group">
+                                        <label for="currentPassword">Current Password</label>
+                                        <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="newPassword">New Password</label>
+                                            <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmNewPassword">Confirm New Password</label>
+                                            <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm new password" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </form>
+
+                                <div class="security-options">
+                                    <h3>Two-Factor Authentication</h3>
+                                    <div class="security-toggle">
+                                        <span>Enable 2FA</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="twoFactorToggle">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders Section -->
+                        <div id="orders-section" class="profile-section">
+                            <div class="section-header">
+                                <h2>📦 My Orders</h2>
+                                <p>View and track your order history</p>
+                            </div>
+                            <div class="section-content">
+                                <div id="ordersList" class="orders-list">
+                                    <!-- Orders will be loaded here -->
+                                    <div class="empty-orders">
+                                        <div class="empty-orders-icon">📦</div>
+                                        <h3>No orders yet</h3>
+                                        <p>Your order history will appear here</p>
+                                        <a href="products.html" class="btn btn-primary">Start Shopping</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Addresses Section -->
+                        <div id="addresses-section" class="profile-section">
+                            <div class="section-header">
+                                <h2>📍 My Addresses</h2>
+                                <p>Manage your delivery addresses</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="addresses-list">
+                                    <!-- Addresses will be loaded here -->
+                                </div>
+                                <button class="btn btn-primary" onclick="addNewAddress()">Add New Address</button>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Section -->
+                        <div id="preferences-section" class="profile-section">
+                            <div class="section-header">
+                                <h2>⚙️ Preferences</h2>
+                                <p>Customize your experience</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="preferences-grid">
+                                    <div class="preference-item">
+                                        <h4>Email Notifications</h4>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="emailNotifications" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-item">
+                                        <h4>SMS Notifications</h4>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="smsNotifications">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-item">
+                                        <h4>Marketing Emails</h4>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="marketingEmails">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>OOMS Nepal</h3>
+                    <p>Revolutionizing online order management in Nepal with cutting-edge technology and exceptional user experience.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">💼</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📧 support@oomsnepal.com.np</li>
+                        <li>📞 +977-1-1234567</li>
+                        <li>📍 Kathmandu, Nepal</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OOMS Nepal. All rights reserved. | Made with ❤️ in Nepal for better ordering</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Profile sidebar navigation
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.profile-section').forEach(s => s.classList.remove('active'));
+
+                // Add active class to clicked item
+                this.classList.add('active');
+                const sectionId = this.getAttribute('data-section') + '-section';
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Form validation
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                e.preventDefault();
+                alert('New passwords do not match!');
+                return false;
+            }
+
+            if (newPassword.length < 6) {
+                e.preventDefault();
+                alert('Password must be at least 6 characters long!');
+                return false;
+            }
+        });
+
+        function resetForm() {
+            document.getElementById('profileForm').reset();
+        }
+
+        function addNewAddress() {
+            alert('Add new address functionality will be implemented soon!');
+        }
+    </script>
+</body>
+</html>

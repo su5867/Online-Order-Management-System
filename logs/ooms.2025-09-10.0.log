@@ -1,0 +1,1 @@
+2025-09-10 00:32:12 - WARN - [http-nio-8080-exec-8] - o.a.c.w.AbstractFileResourceSet - Resource for web application [] at path [/api/categories'.] was not loaded as the canonical path [/api/categories'] did not match. Use of symlinks is one possible cause.

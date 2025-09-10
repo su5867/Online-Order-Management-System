@@ -59,6 +59,12 @@ async function login(email, password) {
             // Redirect based on role
             if (data.role === 'ADMIN') {
                 window.location.href = 'admin.html';
+            } else if (data.role === 'CUSTOMER') {
+                window.location.href = 'profile.html';
+            } else if (data.role === 'RESTAURANT') {
+                window.location.href = 'restaurant.html';
+            } else if (data.role === 'DELIVERY_STAFF') {
+                window.location.href = 'profile.html'; // Use profile page for delivery staff for now
             } else {
                 window.location.href = 'index.html';
             }
@@ -71,14 +77,22 @@ async function login(email, password) {
     }
 }
 
-async function signup(name, email, password) {
+async function signup(name, email, password, phone, role) {
     try {
+        const userData = {
+            name,
+            email,
+            password,
+            phone: phone || null,
+            role: role || 'CUSTOMER'
+        };
+
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, email, password }),
+            body: JSON.stringify(userData),
         });
 
         if (response.ok) {
@@ -111,17 +125,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signupForm) {
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
+            const firstName = document.getElementById('firstName')?.value || '';
+            const lastName = document.getElementById('lastName')?.value || '';
+            const name = firstName + ' ' + lastName;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            const phone = document.getElementById('phone')?.value || '';
+            const role = document.getElementById('role')?.value || 'CUSTOMER';
 
             if (password !== confirmPassword) {
                 showMessage('Passwords do not match', 'error');
                 return;
             }
 
-            signup(name, email, password);
+            signup(name.trim(), email, password, phone, role);
         });
     }
 

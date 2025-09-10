@@ -252,11 +252,27 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    // Store JWT token
+                    // Store JWT token and user info
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('email', email);
+                    localStorage.setItem('role', data.role);
+                    localStorage.setItem('name', data.name);
+
                     alert('Login successful! Welcome back to OOMS!');
-                    window.location.href = 'index.html';
+
+                    // Role-based redirection
+                    const userRole = data.role;
+                    if (userRole === 'ADMIN') {
+                        window.location.href = 'admin.html';
+                    } else if (userRole === 'CUSTOMER') {
+                        window.location.href = 'products.html';
+                    } else if (userRole === 'RESTAURANT') {
+                        window.location.href = 'products.html'; // Could redirect to restaurant dashboard if available
+                    } else if (userRole === 'DELIVERY_STAFF') {
+                        window.location.href = 'index.html'; // Could redirect to delivery dashboard if available
+                    } else {
+                        window.location.href = 'index.html'; // Default fallback
+                    }
                 } else {
                     const error = await response.text();
                     alert('Login failed: ' + error);

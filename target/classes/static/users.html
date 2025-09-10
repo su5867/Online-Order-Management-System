@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - User Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #1e1e2f;
+      color: #fff;
+    }
+    header {
+      background: #27293d;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #7f5af0;
+    }
+    nav a {
+      color: #bbb;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #7f5af0;
+    }
+    main {
+      padding: 2rem;
+    }
+    .section {
+      background: #2a2c42;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(127, 90, 240, 0.3);
+    }
+    .section h2 {
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #7f5af0;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: #7f5af0;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #5a3dbd;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      margin-top: 1rem;
+      color: #ddd;
+    }
+    th, td {
+      padding: 12px 15px;
+      background: #3a3c57;
+      border-radius: 10px;
+      text-align: left;
+    }
+    th {
+      color: #7f5af0;
+      font-weight: 600;
+    }
+    tr:hover td {
+      background: #5a3dbd;
+      color: #fff;
+      cursor: pointer;
+    }
+    .status {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .status.active {
+      background: #28a745;
+      color: #fff;
+    }
+    .status.inactive {
+      background: #dc3545;
+      color: #fff;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #27293d;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(127, 90, 240, 0.5);
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #bbb;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #fff;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #bbb;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1rem;
+      background: #3a3c57;
+      color: #eee;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #7f5af0;
+      background: #4a4c67;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>OOMS Admin</h1>
+    <nav>
+      <a href="admin.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="users.html">Users</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    </nav>
+  </header>
+  <main>
+    <section class="section">
+      <h2>Manage Users</h2>
+      <button id="addUserBtn">Add New User</button>
+      <div id="usersTable"></div>
+    </section>
+  </main>
+
+  <!-- Modal for Add/Edit User -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModalBtn">&times;</span>
+      <h2 id="modalTitle">Add User</h2>
+      <form id="userForm">
+        <input type="hidden" id="userId" />
+        <label for="userName">Name</label>
+        <input type="text" id="userName" required />
+        <label for="userEmail">Email</label>
+        <input type="email" id="userEmail" required />
+        <label for="userPassword">Password</label>
+        <input type="password" id="userPassword" required />
+        <label for="userRole">Role</label>
+        <select id="userRole" required>
+          <option value="">Select Role</option>
+          <option value="CUSTOMER">Customer</option>
+          <option value="ADMIN">Admin</option>
+          <option value="DELIVERY_STAFF">Delivery Staff</option>
+        </select>
+        <button type="submit">Save User</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+  <script>
+    // Modal open/close handlers
+    const userModal = document.getElementById('userModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const addUserBtn = document.getElementById('addUserBtn');
+
+    addUserBtn.addEventListener('click', () => {
+      userModal.style.display = 'flex';
+      document.getElementById('modalTitle').textContent = 'Add User';
+      document.getElementById('userForm').reset();
+      document.getElementById('userId').value = '';
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      userModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === userModal) {
+        userModal.style.display = 'none';
+      }
+    });
+
+    // Load users table
+    async function loadUsersTable() {
+      try {
+        const response = await fetch('http://localhost:8080/api/admin/users', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        if (response.ok) {
+          const users = await response.json();
+          displayUsersTable(users);
+        } else {
+          showAdminMessage('Failed to load users', 'error');
+        }
+      } catch (error) {
+        showAdminMessage('Network error. Please try again.', 'error');
+      }
+    }
+
+    function displayUsersTable(users) {
+      const container = document.getElementById('usersTable');
+      if (!container) return;
+
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      users.forEach(user => {
+        const statusBadge = user.enabled ? 'Active' : 'Inactive';
+        const statusClass = user.enabled ? 'active' : 'inactive';
+
+        html += `<tr>
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
+          <td><span class="status ${statusClass}">${statusBadge}</span></td>
+          <td>
+            <button class="btn btn-small btn-edit" onclick="openEditUserModal(${user.id})">Edit</button>
+            <button class="btn btn-small btn-delete" onclick="deleteUser(${user.id})">Delete</button>
+          </td>
+        </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    // Open modal for editing user
+    function openEditUserModal(userId) {
+      fetch(`http://localhost:8080/api/admin/users/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      .then(res => res.json())
+      .then(user => {
+        document.getElementById('userId').value = user.id;
+        document.getElementById('userName').value = user.name;
+        document.getElementById('userEmail').value = user.email;
+        document.getElementById('userPassword').value = ''; // Don't populate password
+        document.getElementById('userRole').value = user.role;
+        document.getElementById('modalTitle').textContent = 'Edit User';
+        userModal.style.display = 'flex';
+      })
+      .catch(() => showAdminMessage('Failed to load user details', 'error'));
+    }
+
+    // Save user
+    document.getElementById('userForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const userId = document.getElementById('userId').value;
+      const name = document.getElementById('userName').value;
+      const email = document.getElementById('userEmail').value;
+      const password = document.getElementById('userPassword').value;
+      const role = document.getElementById('userRole').value;
+
+      if (!name || !email || !role || (!userId && !password)) {
+        showAdminMessage('Please fill all required fields', 'error');
+        return;
+      }
+
+      const userData = { name, email, role };
+      if (password) userData.password = password;
+
+      try {
+        let response;
+        if (userId) {
+          response = await fetch(`http://localhost:8080/api/admin/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(userData)
+          });
+        } else {
+          response = await fetch('http://localhost:8080/api/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          });
+        }
+
+        if (response.ok) {
+          showAdminMessage('User saved successfully', 'success');
+          userModal.style.display = 'none';
+          loadUsersTable();
+        } else {
+          const error = await response.text();
+          showAdminMessage(error || 'Failed to save user', 'error');
+        }
+      } catch (error) {
+        showAdminMessage('Network error. Please try again.', 'error');
+      }
+    });
+
+    // Delete user
+    async function deleteUser(userId) {
+      if (!confirm('Are you sure you want to delete this user?')) return;
+
+      try {
+        const response = await fetch(`http://localhost:8080/api/admin/users/${userId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          showAdminMessage('User deleted successfully', 'success');
+          loadUsersTable();
+        } else {
+          showAdminMessage('Failed to delete user', 'error');
+        }
+      } catch (error) {
+        showAdminMessage('Network error. Please try again.', 'error');
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!localStorage.getItem('token')) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      loadUsersTable();
+
+      document.getElementById('logoutBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -52,5 +52,5 @@ logs/
 # Keystore
 *.p12
 
-# Application properties (if contains sensitive data, uncomment)
-# src/main/resources/application.properties
+# Application properties (contains sensitive data placeholders)
+src/main/resources/application.properties

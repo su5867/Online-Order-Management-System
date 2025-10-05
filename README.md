@@ -37,11 +37,12 @@ This project is a production-ready Online Order Management System built with Spr
    ```
 
 ### Configuration
-Update `src/main/resources/application.properties` with the following (using environment variables for sensitive data):
-- Database credentials (as above)
-- JWT secret (auto-generated if not set)
-- Email SMTP settings (for notifications)
-- Stripe API keys (see below)
+1. Copy `src/main/resources/application.properties.example` to `src/main/resources/application.properties`.
+2. Update `src/main/resources/application.properties` with your configuration (using environment variables for sensitive data):
+   - Database credentials (as above)
+   - JWT secret (auto-generated if not set)
+   - Email SMTP settings (for notifications)
+   - Stripe API keys (see below)
 
 ### Stripe Payment Gateway Setup
 1. Create a Stripe account at [Stripe Dashboard](https://dashboard.stripe.com/).
